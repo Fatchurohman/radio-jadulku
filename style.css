@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #120f0e;
+    background: #140d09;
     font-family: 'Courier New', Courier, monospace;
     color: #332d29;
     display: flex;
@@ -19,71 +19,70 @@ body {
     padding: 10px;
 }
 
+/* Bodi Kayu Jati/Mahoni Mewah */
 .vintage-player {
     width: 100%;
     max-width: 420px;
-    background: linear-gradient(145deg, #d8caaf, #b3a286);
-    border: 6px solid #4a3b32;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.9), inset 0 0 15px rgba(255,255,255,0.3);
-    padding: 15px;
+    background: radial-gradient(circle at center, #8a5229 0%, #4a2810 70%, #2b1405 100%);
+    border: 8px solid #1a0a02;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.95), inset 0 0 20px rgba(255, 180, 100, 0.2);
+    padding: 16px;
     position: relative;
-    transition: box-shadow 0.1s ease;
 }
 
-/* Top Bar */
+/* Top Bar Aksens Emas/Kuningan Vintage */
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 11px;
-    letter-spacing: 1px;
-    color: #4a3b32;
+    color: #ffd89b;
     margin-bottom: 12px;
-    border-bottom: 1px dashed #8c7a6b;
+    border-bottom: 1px dashed rgba(255, 216, 155, 0.4);
     padding-bottom: 6px;
     font-weight: 600;
 }
 
 .brand-tag {
-    color: #5c4838;
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
+    color: #f1c40f;
+    text-shadow: 0 0 4px rgba(241, 196, 15, 0.5);
     font-weight: bold;
 }
 
 .dev-tag {
-    background: #4a3b32;
-    color: #fdf8e6;
+    background: linear-gradient(135deg, #b8860b, #8b6508);
+    color: #fff;
     padding: 3px 10px;
     border-radius: 12px;
     font-size: 10px;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .dev-tag i {
-    color: #ffb84d;
+    color: #fff;
     font-style: normal;
     font-weight: bold;
 }
 
-/* Radio Dial Display + Dynamic Glow */
+/* Radio Dial Display Warm Glow */
 .radio-display {
-    background: #111;
-    border: 3px solid #3d3128;
+    background: #120a02;
+    border: 3px solid #634323;
     border-radius: 6px;
     height: 60px;
     position: relative;
     overflow: hidden;
     margin-bottom: 12px;
-    box-shadow: inset 0 0 10px #000;
+    box-shadow: inset 0 0 12px #000;
 }
 
 .radio-light {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle, rgba(255,140,0,0.2) 0%, rgba(0,0,0,0.85) 90%);
+    background: radial-gradient(circle, rgba(255, 160, 50, 0.35) 0%, rgba(20, 10, 0, 0.9) 85%);
     pointer-events: none;
-    transition: opacity 0.05s ease;
+    transition: opacity 0.08s ease;
 }
 
 .dial-scale {
@@ -109,101 +108,113 @@ body {
     z-index: 2;
 }
 
-/* Middle Layout */
+/* Middle Section Fix */
 .middle-section {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
     margin-bottom: 12px;
-    align-items: center;
 }
 
 .vu-meter {
     width: 70px;
-    height: 85px;
-    background: #fdf8e6;
-    border: 3px solid #4a3b32;
+    height: 90px;
+    background: #faf3e0;
+    border: 3px solid #54391d;
     border-radius: 6px;
     padding: 4px;
     text-align: center;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
 }
 
-.vu-label { font-size: 8px; font-weight: bold; color: #4a3b32; }
-.vu-dial { height: 60px; position: relative; border-bottom: 2px solid #aaa; }
+.vu-label { font-size: 8px; font-weight: bold; color: #4a2810; }
+.vu-dial { height: 65px; position: relative; border-bottom: 2px solid #aaa; }
 .vu-needle {
     position: absolute; bottom: 0; left: 50%;
-    width: 2px; height: 45px;
+    width: 2px; height: 48px;
     background: #d32f2f;
     transform-origin: bottom center;
     transform: rotate(-40deg);
     transition: transform 0.08s ease-out;
 }
 
-/* Cassette Deck & Interactive Sticker */
+/* Cassette Deck Ukuran Terkunci + Running Text */
 .cassette-deck {
     flex: 1;
-    height: 105px;
-    background: #231e1b;
-    border: 4px solid #5a4b41;
+    min-width: 0; /* Mencegah pelebaran kaset melebihi box */
+    height: 110px;
+    background: #1e150f;
+    border: 4px solid #54391d;
     border-radius: 8px;
     position: relative;
     padding: 6px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: inset 0 0 12px #000;
-    touch-action: none; /* Smooth touch drag */
+    box-shadow: inset 0 0 15px #000;
 }
 
 .cassette-sticker {
-    background: #fdfcf7;
+    background: #fcf8ec;
     padding: 4px 6px;
     border-radius: 4px;
     border-left: 5px solid #d32f2f;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    overflow: hidden;
 }
 
 .sticker-brand {
     font-size: 8px;
     font-weight: bold;
-    color: #888;
+    color: #777;
     display: block;
     letter-spacing: 0.5px;
 }
 
+/* Running Text (Ticker) */
+.ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .handwritten-title {
+    display: inline-block;
     font-family: 'Caveat', cursive, sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     color: #111;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.1;
+    padding-left: 100%;
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
 }
 
 .reels-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 2px;
+    width: 100%;
+    margin-top: 4px;
     cursor: grab;
 }
 
-.reels-container:active { cursor: grabbing; }
-
 .reel {
-    width: 40px; height: 40px;
-    background: radial-gradient(circle, #aaa 30%, #111 70%);
+    width: 38px; height: 38px;
+    min-width: 38px;
+    background: radial-gradient(circle, #ccc 30%, #222 70%);
     border-radius: 50%;
-    border: 3px solid #d8caaf;
+    border: 3px solid #d4af37;
     display: flex; justify-content: center; align-items: center;
 }
 
 .reel-hole {
     width: 12px; height: 12px;
-    background: #231e1b;
+    background: #1e150f;
     border-radius: 50%;
     border: 2px dashed #fff;
 }
@@ -211,15 +222,15 @@ body {
 .spinning { animation: spinReel 2s linear infinite; }
 @keyframes spinReel { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* Volume Knob */
+/* Volume Slider */
 .knob-panel { width: 55px; text-align: center; }
-.knob-container label { font-size: 8px; font-weight: bold; display: block; margin-bottom: 4px; }
-.knob-container input[type=range] { width: 65px; transform: rotate(-90deg); margin-top: 20px; accent-color: #8c2d19; }
+.knob-container label { font-size: 8px; font-weight: bold; color: #ffd89b; display: block; margin-bottom: 4px; }
+.knob-container input[type=range] { width: 65px; transform: rotate(-90deg); margin-top: 20px; accent-color: #d4af37; }
 
-/* Booster Panel (Penguat Suara) */
+/* Panel Booster Vintage Metalik */
 .booster-panel {
-    background: #2d241f;
-    border: 2px solid #4a3b32;
+    background: linear-gradient(180deg, #3a2211, #211309);
+    border: 2px solid #634323;
     border-radius: 6px;
     padding: 8px;
     margin-bottom: 12px;
@@ -230,60 +241,59 @@ body {
     font-size: 9px;
     font-weight: bold;
     text-align: center;
-    color: #ffb84d;
+    color: #ffd89b;
     margin-bottom: 6px;
     letter-spacing: 0.5px;
 }
 
 .booster-controls { display: flex; justify-content: space-around; }
 .booster-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.booster-item label { font-size: 8px; font-weight: bold; color: #b3a286; }
+.booster-item label { font-size: 8px; font-weight: bold; color: #d4af37; }
 
 .toggle-btn {
-    background: #4a3e35;
-    border: 1px solid #1a1410;
-    color: #888;
+    background: #2b180a;
+    border: 1px solid #d4af37;
+    color: #aaa;
     font-size: 9px;
     font-weight: bold;
     padding: 4px 12px;
     border-radius: 3px;
     cursor: pointer;
-    box-shadow: 0 2px 0 #111;
 }
 
 .toggle-btn.active {
-    background: #e65100;
-    color: #fff;
-    box-shadow: 0 0 8px #ff6d00, inset 0 0 4px #fff;
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 0 8px #ffdf00;
 }
 
-/* Buttons */
+/* Tombol Fisik */
 .button-panel { display: flex; gap: 6px; margin-bottom: 12px; }
 .btn-tape {
     flex: 1; height: 48px;
-    background: linear-gradient(to bottom, #77685a, #4a3e35);
-    border: 2px solid #2d241f; border-radius: 4px;
-    color: #f1e9db; font-size: 9px; font-weight: bold;
+    background: linear-gradient(to bottom, #8a5829, #4a2d10);
+    border: 2px solid #231205; border-radius: 4px;
+    color: #fdf8e6; font-size: 9px; font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 0 #221a16, 0 6px 5px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 0 #120903, 0 6px 5px rgba(0,0,0,0.5);
     display: flex; align-items: center; justify-content: center;
 }
 .btn-tape:active, .btn-tape.active {
     transform: translateY(3px);
-    box-shadow: 0 1px 0 #221a16;
-    background: linear-gradient(to bottom, #4a3e35, #77685a);
+    box-shadow: 0 1px 0 #120903;
+    background: linear-gradient(to bottom, #4a2d10, #8a5829);
 }
-.btn-open { background: linear-gradient(to bottom, #8c3b2b, #5a2015); }
+.btn-open { background: linear-gradient(to bottom, #a83220, #61180d); }
 
-/* Playlist */
+/* Playlist Card */
 .playlist-card {
-    background: #fbf8ef;
-    border: 2px solid #9a8a75;
+    background: #faf4e8;
+    border: 2px solid #8a633c;
     border-radius: 4px; padding: 8px;
-    max-height: 130px; overflow-y: auto;
+    max-height: 120px; overflow-y: auto;
 }
-.card-title { font-size: 9px; font-weight: bold; color: #6a5a4a; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 1px dashed #c0b49f; }
+.card-title { font-size: 9px; font-weight: bold; color: #54391d; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 1px dashed #c4a988; }
 .playlist-list { list-style: none; }
-.playlist-list li { font-size: 10px; padding: 4px; border-bottom: 1px dashed #e0d5c1; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f5e8d0; }
+.playlist-list li { font-size: 10px; padding: 4px; border-bottom: 1px dashed #e0d2bd; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f3e5cb; }
 .empty-msg { color: #888; font-style: italic; }
