@@ -26,11 +26,8 @@ let audioCtx, source, gainNode, bassFilter, analyser, dataArray;
 let isBoostOn = false;
 let isBassOn = false;
 
-// LOGIKA PILIH FOLDER / FILE AUDIO DI-PERBAIKI TOTAL
 fileInput.addEventListener('change', (e) => {
     const files = Array.from(e.target.files);
-    
-    // Filter hanya berkas audio
     const audioFiles = files.filter(f => f.type.startsWith('audio/') || f.name.match(/\.(mp3|m4a|wav|ogg|flac)$/i));
     
     if (audioFiles.length === 0) return;
@@ -62,15 +59,11 @@ function renderPlaylist() {
 function loadSong(index) {
     if (!playlist[index]) return;
     const file = playlist[index];
-    
-    // Buat URL Objek Lokal
-    const songURL = URL.createObjectURL(file);
-    audio.src = songURL;
+    audio.src = URL.createObjectURL(file);
     
     const cleanName = file.name.replace(/\.[^/.]+$/, "");
     songTitle.textContent = cleanName;
     
-    // Reset Animasi Running Text
     songTitle.style.animation = 'none';
     songTitle.offsetHeight;
     songTitle.style.animation = 'marquee 12s linear infinite';
@@ -81,7 +74,9 @@ function loadSong(index) {
 function playAudio() {
     if (!audio.src) return;
     
-    if ((isBoostOn || isBassOn) && audioCtx && audioCtx.state === 'suspended') {
+    // Inisialisasi Audio Analyzer Setiap Kali Lagu Diputar
+    initWebAudio();
+    if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
     
@@ -90,13 +85,7 @@ function playAudio() {
         rightReel.classList.add('spinning');
         btnPlay.classList.add('active');
         btnPause.classList.remove('active');
-    }).catch(err => {
-        console.log("Play error:", err);
-    });
-
-    if (isBoostOn || isBassOn) {
-        initWebAudio();
-    }
+    }).catch(err => console.log(err));
 }
 
 function pauseAudio() {
@@ -147,7 +136,7 @@ freqDisplay.addEventListener('click', (e) => {
 
 audio.addEventListener('ended', () => btnNext.click());
 
-// Audio Engine
+// Web Audio API & Analyser Jarum S-Meter
 function initWebAudio() {
     if (audioCtx) return;
     try {
@@ -180,9 +169,7 @@ function initWebAudio() {
 btnBoost.addEventListener('click', () => {
     initWebAudio();
     isBoostOn = !isBoostOn;
-    if (gainNode) {
-        gainNode.gain.value = isBoostOn ? 1.25 : 1.0;
-    }
+    if (gainNode) gainNode.gain.value = isBoostOn ? 1.25 : 1.0;
     btnBoost.textContent = isBoostOn ? "ON" : "OFF";
     btnBoost.classList.toggle('active', isBoostOn);
 });
@@ -190,13 +177,12 @@ btnBoost.addEventListener('click', () => {
 btnBass.addEventListener('click', () => {
     initWebAudio();
     isBassOn = !isBassOn;
-    if (bassFilter) {
-        bassFilter.gain.value = isBassOn ? 5 : 0;
-    }
+    if (bassFilter) bassFilter.gain.value = isBassOn ? 5 : 0;
     btnBass.textContent = isBassOn ? "ON" : "OFF";
     btnBass.classList.toggle('active', isBassOn);
 });
 
+// Render Gerakan Jarum S-Meter Mengikuti Amplitude Lagu
 function renderAudioVisuals() {
     requestAnimationFrame(renderAudioVisuals);
     if (!analyser || audio.paused) {
@@ -212,6 +198,7 @@ function renderAudioVisuals() {
     }
     let avg = sum / dataArray.length;
 
+    // Gerakkan jarum dinamis dari -30deg sampai +30deg
     let angle = -30 + (avg / 255) * 60;
     vuNeedle.style.transform = `rotate(${angle}deg)`;
 
