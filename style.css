@@ -1,229 +1,374 @@
-const audio = document.getElementById('audioEngine');
-const fileInput = document.getElementById('fileInput');
-const songTitle = document.getElementById('songTitle');
-const playlistView = document.getElementById('playlistView');
-const dialNeedle = document.getElementById('dialNeedle');
-const vuNeedle = document.getElementById('vuNeedle');
-const leftReel = document.getElementById('leftReel');
-const rightReel = document.getElementById('rightReel');
-const tapeRollLeft = document.getElementById('tapeRollLeft');
-const tapeRollRight = document.getElementById('tapeRollRight');
-const freqDisplay = document.getElementById('freqDisplay');
-const radioLight = document.getElementById('radioLight');
-const reelsArea = document.getElementById('reelsArea');
-
-const btnPlay = document.getElementById('btnPlay');
-const btnPause = document.getElementById('btnPause');
-const btnPrev = document.getElementById('btnPrev');
-const btnNext = document.getElementById('btnNext');
-const btnBoost = document.getElementById('btnBoost');
-const btnBass = document.getElementById('btnBass');
-
-let playlist = [];
-let currentIndex = 0;
-
-let audioCtx, source, gainNode, bassFilter, analyser, dataArray;
-let isBoostOn = false;
-let isBassOn = false;
-
-fileInput.addEventListener('change', (e) => {
-    const files = Array.from(e.target.files);
-    const audioFiles = files.filter(f => f.type.startsWith('audio/') || f.name.match(/\.(mp3|m4a|wav|ogg|flac)$/i));
-    
-    if (audioFiles.length === 0) return;
-
-    playlist = audioFiles;
-    currentIndex = 0;
-    renderPlaylist();
-    loadSong(currentIndex);
-    playAudio();
-});
-
-function renderPlaylist() {
-    playlistView.innerHTML = '';
-    playlist.forEach((file, index) => {
-        const li = document.createElement('li');
-        const cleanName = file.name.replace(/\.[^/.]+$/, "");
-        li.textContent = `${index + 1}. ${cleanName}`;
-        if (index === currentIndex) li.classList.add('playing');
-        
-        li.addEventListener('click', () => {
-            currentIndex = index;
-            loadSong(currentIndex);
-            playAudio();
-        });
-        playlistView.appendChild(li);
-    });
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    margin: 0;
+    padding: 0;
 }
 
-function loadSong(index) {
-    if (!playlist[index]) return;
-    const file = playlist[index];
-    audio.src = URL.createObjectURL(file);
-    
-    const cleanName = file.name.replace(/\.[^/.]+$/, "");
-    songTitle.textContent = cleanName;
-    
-    songTitle.style.animation = 'none';
-    songTitle.offsetHeight;
-    songTitle.style.animation = 'marquee 12s linear infinite';
-    
-    renderPlaylist();
+body {
+    background: #0f0a07;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #332d29;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
 }
 
-function playAudio() {
-    if (!audio.src) return;
-    
-    // Inisialisasi Audio Analyzer Setiap Kali Lagu Diputar
-    initWebAudio();
-    if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
-    
-    audio.play().then(() => {
-        leftReel.classList.add('spinning');
-        rightReel.classList.add('spinning');
-        btnPlay.classList.add('active');
-        btnPause.classList.remove('active');
-    }).catch(err => console.log(err));
+/* Bodi Kayu Mahoni Klasik */
+.vintage-player {
+    width: 100%;
+    max-width: 420px;
+    background: radial-gradient(circle at center, #7a4623 0%, #40210c 70%, #210e03 100%);
+    border: 8px solid #140802;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.95);
+    padding: 14px;
+    position: relative;
 }
 
-function pauseAudio() {
-    audio.pause();
-    leftReel.classList.remove('spinning');
-    rightReel.classList.remove('spinning');
-    btnPlay.classList.remove('active');
-    btnPause.classList.add('active');
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #ffd89b;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed rgba(255, 216, 155, 0.3);
+    padding-bottom: 6px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
 }
 
-btnPlay.addEventListener('click', playAudio);
-btnPause.addEventListener('click', pauseAudio);
+.brand-tag { color: #f1c40f; }
+.dev-tag {
+    background: #b8860b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+}
+.dev-tag i { color: #fff; font-style: normal; }
 
-btnNext.addEventListener('click', () => {
-    if (playlist.length === 0) return;
-    currentIndex = (currentIndex + 1) % playlist.length;
-    loadSong(currentIndex);
-    playAudio();
-});
-
-btnPrev.addEventListener('click', () => {
-    if (playlist.length === 0) return;
-    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    loadSong(currentIndex);
-    playAudio();
-});
-
-audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-        const progress = (audio.currentTime / audio.duration);
-        dialNeedle.style.left = `${progress * 100}%`;
-
-        let leftSize = 42 - (progress * 16);
-        let rightSize = 26 + (progress * 16);
-        tapeRollLeft.style.width = `${leftSize}px`;
-        tapeRollLeft.style.height = `${leftSize}px`;
-        tapeRollRight.style.width = `${rightSize}px`;
-        tapeRollRight.style.height = `${rightSize}px`;
-    }
-});
-
-freqDisplay.addEventListener('click', (e) => {
-    if (!audio.duration) return;
-    const rect = freqDisplay.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    audio.currentTime = (clickX / rect.width) * audio.duration;
-});
-
-audio.addEventListener('ended', () => btnNext.click());
-
-// Web Audio API & Analyser Jarum S-Meter
-function initWebAudio() {
-    if (audioCtx) return;
-    try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        source = audioCtx.createMediaElementSource(audio);
-        
-        gainNode = audioCtx.createGain();
-        gainNode.gain.value = isBoostOn ? 1.25 : 1.0;
-
-        bassFilter = audioCtx.createBiquadFilter();
-        bassFilter.type = 'lowshelf';
-        bassFilter.frequency.value = 150;
-        bassFilter.gain.value = isBassOn ? 5 : 0;
-
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 64;
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        source.connect(bassFilter);
-        bassFilter.connect(gainNode);
-        gainNode.connect(analyser);
-        analyser.connect(audioCtx.destination);
-
-        renderAudioVisuals();
-    } catch (e) {
-        console.log("Audio Engine Ready");
-    }
+/* Radio Dial Display */
+.radio-display {
+    background: #120a02;
+    border: 3px solid #54371b;
+    border-radius: 6px;
+    height: 55px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: inset 0 0 10px #000;
 }
 
-btnBoost.addEventListener('click', () => {
-    initWebAudio();
-    isBoostOn = !isBoostOn;
-    if (gainNode) gainNode.gain.value = isBoostOn ? 1.25 : 1.0;
-    btnBoost.textContent = isBoostOn ? "ON" : "OFF";
-    btnBoost.classList.toggle('active', isBoostOn);
-});
-
-btnBass.addEventListener('click', () => {
-    initWebAudio();
-    isBassOn = !isBassOn;
-    if (bassFilter) bassFilter.gain.value = isBassOn ? 5 : 0;
-    btnBass.textContent = isBassOn ? "ON" : "OFF";
-    btnBass.classList.toggle('active', isBassOn);
-});
-
-// Render Gerakan Jarum S-Meter Mengikuti Amplitude Lagu
-function renderAudioVisuals() {
-    requestAnimationFrame(renderAudioVisuals);
-    if (!analyser || audio.paused) {
-        vuNeedle.style.transform = 'rotate(-30deg)';
-        radioLight.style.opacity = '0.3';
-        return;
-    }
-    
-    analyser.getByteFrequencyData(dataArray);
-    let sum = 0;
-    for (let i = 0; i < dataArray.length; i++) {
-        sum += dataArray[i];
-    }
-    let avg = sum / dataArray.length;
-
-    // Gerakkan jarum dinamis dari -30deg sampai +30deg
-    let angle = -30 + (avg / 255) * 60;
-    vuNeedle.style.transform = `rotate(${angle}deg)`;
-
-    let glowIntensity = 0.3 + (avg / 255) * 0.7;
-    radioLight.style.opacity = glowIntensity.toString();
+.radio-light {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle, rgba(255, 160, 50, 0.3) 0%, rgba(10, 5, 0, 0.85) 85%);
+    pointer-events: none;
+    transition: opacity 0.1s ease;
 }
 
-// Drag Reels
-let startX = 0;
-let isDragging = false;
+.dial-scale {
+    color: #ffb84d;
+    font-size: 10px;
+    padding: 6px 10px;
+    font-family: 'Courier New', monospace;
+}
 
-reelsArea.addEventListener('pointerdown', (e) => {
-    if (!audio.src) return;
-    isDragging = true;
-    startX = e.clientX;
-});
+.dial-scale .khz { color: #d99b00; margin-top: 3px; }
 
-window.addEventListener('pointermove', (e) => {
-    if (!isDragging || !audio.duration) return;
-    let deltaX = e.clientX - startX;
-    audio.currentTime += deltaX * 0.05;
-    startX = e.clientX;
+.dial-needle {
+    position: absolute;
+    top: 0; bottom: 0; left: 0%;
+    width: 3px;
+    background: #ff3300;
+    box-shadow: 0 0 6px #ff3300;
+    transition: left 0.2s linear;
+    z-index: 2;
+}
 
-    leftReel.style.transform = `rotate(${audio.currentTime * 50}deg)`;
-    rightReel.style.transform = `rotate(${audio.currentTime * 50}deg)`;
-});
+/* Middle Layout */
+.middle-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
 
-window.addEventListener('pointerup', () => { isDragging = false; });
+/* S-Meter */
+.vu-meter {
+    width: 65px;
+    height: 130px;
+    background: #fcf8ec;
+    border: 3px solid #4a2e16;
+    border-radius: 6px;
+    padding: 6px 4px;
+    text-align: center;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.vu-label { font-size: 8px; font-weight: bold; color: #4a2e16; font-family: monospace; }
+.vu-dial { height: 100px; position: relative; border-bottom: 2px solid #aaa; }
+
+.vu-needle {
+    position: absolute; 
+    bottom: 0; 
+    left: 50%;
+    width: 2px; 
+    height: 65px;
+    background: #d32f2f;
+    transform-origin: bottom center;
+    transform: rotate(-30deg);
+    transition: transform 0.05s ease-out;
+}
+
+/* === BENTUK KASET MIKA BENING KRISTAL PERSIS GAMBAR === */
+.cassette-deck {
+    flex: 1;
+    min-width: 0;
+    height: 130px;
+    background: linear-gradient(180deg, #3a2b1f 0%, #1c140d 100%);
+    border: 4px solid #4a2e16;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: inset 0 0 12px #000;
+}
+
+.clear-cassette {
+    width: 100%;
+    height: 100%;
+    /* Bodi Mika Bening Kristal Transparan */
+    background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.25) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 0 8px rgba(255,255,255,0.5);
+}
+
+/* Sekrup di 4 Sudut Mika */
+.screw {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #bbb;
+    border-radius: 50%;
+    border: 1px solid #666;
+    z-index: 5;
+}
+.screw.top-left { top: 4px; left: 4px; }
+.screw.top-right { top: 4px; right: 4px; }
+.screw.bottom-left { bottom: 4px; left: 4px; }
+.screw.bottom-right { bottom: 4px; right: 4px; }
+
+/* Label Stiker Atas */
+.cassette-label-sticker {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+.side-mark {
+    font-weight: bold;
+    font-size: 11px;
+    color: #111;
+    font-family: monospace;
+    border-right: 1px solid #ccc;
+    padding-right: 5px;
+}
+
+.ticker-wrapper {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.clean-running-title {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #111;
+    font-family: Arial, sans-serif;
+    padding-left: 100%;
+    animation: marquee 12s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* Area Tengah Gulungan Pita & Hub Roda */
+.reels-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    position: relative;
+    height: 52px;
+    cursor: grab;
+    z-index: 2;
+}
+
+.spool {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pita Kaset Cokelat Tua Murni */
+.tape-roll {
+    position: absolute;
+    border-radius: 50%;
+    background: #2b170c;
+    border: 1px solid #140a05;
+    width: 44px;
+    height: 44px;
+    z-index: 1;
+}
+
+/* Hub Roda Putih Bergerigi 6 Spoke */
+.hub-center {
+    width: 26px;
+    height: 26px;
+    background: #f4f4f4;
+    border: 2px solid #999;
+    border-radius: 50%;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
+}
+
+.spoke {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 20px; height: 3px;
+    background: #222;
+    margin-top: -1.5px; margin-left: -10px;
+}
+.spoke.s1 { transform: rotate(0deg); }
+.spoke.s2 { transform: rotate(60deg); }
+.spoke.s3 { transform: rotate(120deg); }
+
+.spinning { animation: spinHub 2.5s linear infinite; }
+@keyframes spinHub { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Cetakan Tulisan Oranye Transparan di Atas Mika */
+.cassette-print {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    font-weight: 900;
+    color: #e67e22; /* Warna Emas/Oranye khas Memorex */
+    text-shadow: 0 0 2px rgba(230, 126, 34, 0.5);
+    font-family: Arial Black, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    z-index: 3;
+}
+
+/* Celah Trapesium Pita Bawah */
+.bottom-trapezoid {
+    height: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tape-path {
+    width: 80%;
+    height: 3px;
+    background: #2b170c;
+}
+
+/* Panel Booster */
+.booster-panel {
+    background: #211208;
+    border: 2px solid #4a2e16;
+    border-radius: 6px;
+    padding: 6px;
+    margin-bottom: 10px;
+}
+
+.booster-title {
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffd89b;
+    margin-bottom: 4px;
+    font-family: monospace;
+}
+
+.booster-controls { display: flex; justify-content: space-around; }
+.booster-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.booster-item label { font-size: 8px; font-weight: bold; color: #b8860b; font-family: monospace; }
+
+.toggle-btn {
+    background: #120904;
+    border: 1px solid #b8860b;
+    color: #888;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.toggle-btn.active {
+    background: #b8860b;
+    color: #000;
+    box-shadow: 0 0 6px #ffdf00;
+}
+
+/* Tombol Fisik */
+.button-panel { display: flex; gap: 5px; margin-bottom: 10px; }
+.btn-tape {
+    flex: 1; height: 44px;
+    background: linear-gradient(to bottom, #7a4623, #40210c);
+    border: 2px solid #140802; border-radius: 4px;
+    color: #fdf8e6; font-size: 9px; font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #100501;
+    display: flex; align-items: center; justify-content: center;
+}
+.btn-tape:active, .btn-tape.active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #100501;
+}
+.btn-open { background: linear-gradient(to bottom, #96281b, #5c140b); }
+
+/* Playlist Card */
+.playlist-card {
+    background: #fdfbf7;
+    border: 2px solid #7a4623;
+    border-radius: 4px; padding: 6px;
+    max-height: 110px; overflow-y: auto;
+}
+.card-title { font-size: 9px; font-weight: bold; color: #40210c; padding-bottom: 3px; margin-bottom: 4px; border-bottom: 1px dashed #cca385; font-family: monospace; }
+.playlist-list { list-style: none; }
+.playlist-list li { font-size: 10px; padding: 5px; border-bottom: 1px dashed #e8d7c8; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #222; }
+.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f5e8d0; }
+.empty-msg { color: #888; font-style: italic; }
