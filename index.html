@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>60s Vintage Tape Player - fatur62 Edition</title>
+    <title>60s Luxury Vintage Tape - fatur62</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="vintage-player" id="playerBody">
-        <!-- Status Bar Vintage Aesthetic -->
+    <div class="vintage-player">
+        <!-- Status Bar Vintage Brass -->
         <div class="top-bar">
-            <span class="brand-tag">✦ VINTAGE SOUND SYSTEM ✦</span>
+            <span class="brand-tag">✦ LUXURY ANALOG SOUND ✦</span>
             <span class="dev-tag">DEV: <i>fatur62</i></span>
         </div>
 
-        <!-- Radio Display (Progress / Seek Bar + Lampu Pendar Warm Glow) -->
+        <!-- Radio Display (Seekbar) -->
         <div class="radio-display" id="freqDisplay">
             <div class="dial-scale">
                 <span class="mhz">FM 88..90..94..98..102..108 MHz</span>
@@ -25,7 +25,7 @@
             <div class="radio-light" id="radioLight"></div>
         </div>
 
-        <!-- Middle Layout -->
+        <!-- Middle Section -->
         <div class="middle-section">
             <!-- VU Meter -->
             <div class="vu-meter">
@@ -35,15 +35,15 @@
                 </div>
             </div>
 
-            <!-- Cassette Deck (Interaktif: BISA DIPUTAR DENGAN JARI + STIKER TULISAN TANGAN) -->
-            <div class="cassette-deck" id="cassetteDeck">
-                <!-- Stiker Kaset dengan Judul Tulisan Tangan -->
+            <!-- Cassette Deck dengan Running Text -->
+            <div class="cassette-deck">
                 <div class="cassette-sticker" id="stickerTheme">
-                    <span class="sticker-brand">fatur62 HIGH BIAS</span>
-                    <div class="handwritten-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                    <span class="sticker-brand">fatur62 HIGH BIAS AUDIO</span>
+                    <div class="ticker-wrapper">
+                        <div class="handwritten-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                    </div>
                 </div>
                 
-                <!-- Roda Pita Kaset (Bisa di-drag / swipe kiri-kanan) -->
                 <div class="reels-container" id="reelsArea">
                     <div class="reel left-reel" id="leftReel">
                         <div class="reel-hole"></div>
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <!-- Volume Slider -->
+            <!-- Volume Control -->
             <div class="knob-panel">
                 <div class="knob-container">
                     <label>VOLUME</label>
@@ -64,22 +64,22 @@
             </div>
         </div>
 
-        <!-- Panel Penguat Suara (AUDIO BOOSTER & BASS) -->
+        <!-- Panel Booster Audio Jernih -->
         <div class="booster-panel">
-            <div class="booster-title">⚡ PENGUAT SUARA ANALOG (TUBE AMP)</div>
+            <div class="booster-title">✨ HI-FI TUBE PRE-AMP & BASS ENHANCER</div>
             <div class="booster-controls">
                 <div class="booster-item">
-                    <label>BOOST (2X VOL)</label>
+                    <label>CLARITY BOOST</label>
                     <button id="btnBoost" class="toggle-btn">OFF</button>
                 </div>
                 <div class="booster-item">
-                    <label>BASS PUNCH</label>
+                    <label>DEEP BASS</label>
                     <button id="btnBass" class="toggle-btn">OFF</button>
                 </div>
             </div>
         </div>
 
-        <!-- Tombol Fisik Timbul -->
+        <!-- Physical Buttons -->
         <div class="button-panel">
             <label class="btn-tape btn-open" for="fileInput">
                 <span>📁 FOLDER</span>
@@ -98,7 +98,7 @@
             </button>
         </div>
 
-        <!-- Playlist Text -->
+        <!-- Playlist Card -->
         <div class="playlist-card">
             <div class="card-title">MEMORI LOKAL • DAFTAR LAGU</div>
             <ul id="playlistView" class="playlist-list">
