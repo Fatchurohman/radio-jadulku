@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>60s Vintage Tape Player</title>
+    <title>60s Vintage Tape Player - fatur62 Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="vintage-player">
+    <div class="vintage-player" id="playerBody">
         <!-- Status Bar Vintage Aesthetic -->
         <div class="top-bar">
             <span class="brand-tag">✦ VINTAGE SOUND SYSTEM ✦</span>
             <span class="dev-tag">DEV: <i>fatur62</i></span>
         </div>
 
-        <!-- Frequency / Radio Display (Progress Bar / Seek Bar) -->
+        <!-- Radio Display (Progress / Seek Bar + Lampu Pendar Warm Glow) -->
         <div class="radio-display" id="freqDisplay">
             <div class="dial-scale">
                 <span class="mhz">FM 88..90..94..98..102..108 MHz</span>
                 <div class="khz">AM 550..700..900..1200..1600 kHz</div>
             </div>
-            <!-- Jarum Dial Analog yang Bergerak Sesuai Durasi Lagu -->
             <div class="dial-needle" id="dialNeedle"></div>
-            <div class="radio-light"></div>
+            <div class="radio-light" id="radioLight"></div>
         </div>
 
-        <!-- Middle Section: VU Meter + Cassette Tape + Volume Knob -->
+        <!-- Middle Layout -->
         <div class="middle-section">
-            <!-- VU Meter / S-Meter -->
+            <!-- VU Meter -->
             <div class="vu-meter">
                 <div class="vu-label">S-METER</div>
                 <div class="vu-dial">
@@ -36,24 +35,46 @@
                 </div>
             </div>
 
-            <!-- Jendela Kaset Utama -->
-            <div class="cassette-deck">
-                <div class="cassette-label" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
-                <div class="reels">
+            <!-- Cassette Deck (Interaktif: BISA DIPUTAR DENGAN JARI + STIKER TULISAN TANGAN) -->
+            <div class="cassette-deck" id="cassetteDeck">
+                <!-- Stiker Kaset dengan Judul Tulisan Tangan -->
+                <div class="cassette-sticker" id="stickerTheme">
+                    <span class="sticker-brand">fatur62 HIGH BIAS</span>
+                    <div class="handwritten-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                </div>
+                
+                <!-- Roda Pita Kaset (Bisa di-drag / swipe kiri-kanan) -->
+                <div class="reels-container" id="reelsArea">
                     <div class="reel left-reel" id="leftReel">
                         <div class="reel-hole"></div>
                     </div>
+                    <div class="reel-spool"></div>
                     <div class="reel right-reel" id="rightReel">
                         <div class="reel-hole"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Volume Knob Slider -->
+            <!-- Volume Slider -->
             <div class="knob-panel">
                 <div class="knob-container">
                     <label>VOLUME</label>
                     <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.8">
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Penguat Suara (AUDIO BOOSTER & BASS) -->
+        <div class="booster-panel">
+            <div class="booster-title">⚡ PENGUAT SUARA ANALOG (TUBE AMP)</div>
+            <div class="booster-controls">
+                <div class="booster-item">
+                    <label>BOOST (2X VOL)</label>
+                    <button id="btnBoost" class="toggle-btn">OFF</button>
+                </div>
+                <div class="booster-item">
+                    <label>BASS PUNCH</label>
+                    <button id="btnBass" class="toggle-btn">OFF</button>
                 </div>
             </div>
         </div>
@@ -77,18 +98,18 @@
             </button>
         </div>
 
-        <!-- Daftar Lagu / Kertas Playlist -->
+        <!-- Playlist Text -->
         <div class="playlist-card">
             <div class="card-title">MEMORI LOKAL • DAFTAR LAGU</div>
             <ul id="playlistView" class="playlist-list">
-                <li class="empty-msg">Klik tombol [📁 FOLDER] di atas untuk memilih lagu dari HP kamu.</li>
+                <li class="empty-msg">Klik [📁 FOLDER] untuk memilih lagu dari HP kamu.</li>
             </ul>
         </div>
     </div>
 
-    <!-- Hidden Inputs & Audio Engine -->
+    <!-- Hidden Input & Engine -->
     <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
-    <audio id="audioEngine"></audio>
+    <audio id="audioEngine" crossorigin="anonymous"></audio>
 
     <script src="script.js"></script>
 </body>
