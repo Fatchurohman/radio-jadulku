@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
-
 * {
     box-sizing: border-box;
     user-select: none;
@@ -9,8 +7,8 @@
 }
 
 body {
-    background: #140d09;
-    font-family: 'Courier New', Courier, monospace;
+    background: #120c08;
+    font-family: Arial, Helvetica, sans-serif;
     color: #332d29;
     display: flex;
     justify-content: center;
@@ -19,19 +17,19 @@ body {
     padding: 10px;
 }
 
-/* Bodi Kayu Jati/Mahoni Mewah */
+/* Bodi Kayu Mahoni Klasik */
 .vintage-player {
     width: 100%;
     max-width: 420px;
-    background: radial-gradient(circle at center, #8a5229 0%, #4a2810 70%, #2b1405 100%);
-    border: 8px solid #1a0a02;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.95), inset 0 0 20px rgba(255, 180, 100, 0.2);
-    padding: 16px;
+    background: radial-gradient(circle at center, #7a4623 0%, #40210c 70%, #210e03 100%);
+    border: 8px solid #140802;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.95);
+    padding: 14px;
     position: relative;
 }
 
-/* Top Bar Aksens Emas/Kuningan Vintage */
+/* Top Bar */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -39,76 +37,62 @@ body {
     font-size: 11px;
     color: #ffd89b;
     margin-bottom: 12px;
-    border-bottom: 1px dashed rgba(255, 216, 155, 0.4);
+    border-bottom: 1px dashed rgba(255, 216, 155, 0.3);
     padding-bottom: 6px;
-    font-weight: 600;
-}
-
-.brand-tag {
-    color: #f1c40f;
-    text-shadow: 0 0 4px rgba(241, 196, 15, 0.5);
     font-weight: bold;
+    font-family: 'Courier New', monospace;
 }
 
+.brand-tag { color: #f1c40f; }
 .dev-tag {
-    background: linear-gradient(135deg, #b8860b, #8b6508);
+    background: #b8860b;
     color: #fff;
-    padding: 3px 10px;
-    border-radius: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
     font-size: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+.dev-tag i { color: #fff; font-style: normal; }
 
-.dev-tag i {
-    color: #fff;
-    font-style: normal;
-    font-weight: bold;
-}
-
-/* Radio Dial Display Warm Glow */
+/* Radio Dial Display */
 .radio-display {
     background: #120a02;
-    border: 3px solid #634323;
+    border: 3px solid #54371b;
     border-radius: 6px;
-    height: 60px;
+    height: 55px;
     position: relative;
     overflow: hidden;
     margin-bottom: 12px;
-    box-shadow: inset 0 0 12px #000;
+    box-shadow: inset 0 0 10px #000;
 }
 
 .radio-light {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle, rgba(255, 160, 50, 0.35) 0%, rgba(20, 10, 0, 0.9) 85%);
+    background: radial-gradient(circle, rgba(255, 160, 50, 0.3) 0%, rgba(10, 5, 0, 0.85) 85%);
     pointer-events: none;
-    transition: opacity 0.08s ease;
+    transition: opacity 0.1s ease;
 }
 
 .dial-scale {
     color: #ffb84d;
-    font-size: 11px;
-    padding: 8px 10px;
-    text-shadow: 0 0 5px #ff9900;
+    font-size: 10px;
+    padding: 6px 10px;
+    font-family: 'Courier New', monospace;
 }
 
-.dial-scale .khz {
-    font-size: 10px;
-    color: #d99b00;
-    margin-top: 4px;
-}
+.dial-scale .khz { color: #d99b00; margin-top: 3px; }
 
 .dial-needle {
     position: absolute;
     top: 0; bottom: 0; left: 0%;
     width: 3px;
     background: #ff3300;
-    box-shadow: 0 0 8px #ff3300;
+    box-shadow: 0 0 6px #ff3300;
     transition: left 0.2s linear;
     z-index: 2;
 }
 
-/* Middle Section Fix */
+/* Middle Layout */
 .middle-section {
     display: flex;
     justify-content: space-between;
@@ -118,75 +102,83 @@ body {
 }
 
 .vu-meter {
-    width: 70px;
-    height: 90px;
-    background: #faf3e0;
-    border: 3px solid #54391d;
+    width: 65px;
+    height: 95px;
+    background: #fcf8ec;
+    border: 3px solid #4a2e16;
     border-radius: 6px;
     padding: 4px;
     text-align: center;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
-.vu-label { font-size: 8px; font-weight: bold; color: #4a2810; }
-.vu-dial { height: 65px; position: relative; border-bottom: 2px solid #aaa; }
+.vu-label { font-size: 8px; font-weight: bold; color: #4a2e16; font-family: monospace; }
+.vu-dial { height: 70px; position: relative; border-bottom: 2px solid #aaa; }
 .vu-needle {
     position: absolute; bottom: 0; left: 50%;
-    width: 2px; height: 48px;
+    width: 2px; height: 50px;
     background: #d32f2f;
     transform-origin: bottom center;
     transform: rotate(-40deg);
     transition: transform 0.08s ease-out;
 }
 
-/* Cassette Deck Ukuran Terkunci + Running Text */
+/* === DESAIN KASET PITA ALAMI & PROPORSIONAL === */
 .cassette-deck {
     flex: 1;
-    min-width: 0; /* Mencegah pelebaran kaset melebihi box */
-    height: 110px;
-    background: #1e150f;
-    border: 4px solid #54391d;
+    min-width: 0;
+    height: 120px; /* Ukuran proporsional fisik kaset */
+    background: #110c08;
+    border: 4px solid #4a2e16;
     border-radius: 8px;
-    position: relative;
     padding: 6px;
+    box-shadow: inset 0 0 12px #000;
+}
+
+.cassette-body {
+    width: 100%;
+    height: 100%;
+    background: #2a2826; /* Body kaset mika hitam alami */
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: inset 0 0 15px #000;
 }
 
-.cassette-sticker {
-    background: #fcf8ec;
-    padding: 4px 6px;
-    border-radius: 4px;
-    border-left: 5px solid #d32f2f;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    overflow: hidden;
+.cassette-label-sticker {
+    background: #fdfdfa;
+    padding: 3px 6px;
+    border-radius: 3px;
+    border-left: 5px solid #c62828;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .sticker-brand {
     font-size: 8px;
     font-weight: bold;
-    color: #777;
+    color: #666;
     display: block;
-    letter-spacing: 0.5px;
+    font-family: monospace;
 }
 
-/* Running Text (Ticker) */
+/* Running Text Standar & Sangat Jelas Dibaca */
 .ticker-wrapper {
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
+    margin-top: 2px;
 }
 
-.handwritten-title {
+.clean-running-title {
     display: inline-block;
-    font-family: 'Caveat', cursive, sans-serif;
-    font-size: 17px;
-    color: #111;
+    font-size: 13px;
     font-weight: bold;
+    color: #111;
+    font-family: Arial, sans-serif;
     padding-left: 100%;
-    animation: marquee 10s linear infinite;
+    animation: marquee 12s linear infinite;
 }
 
 @keyframes marquee {
@@ -194,47 +186,74 @@ body {
     100% { transform: translate(-100%, 0); }
 }
 
-.reels-container {
+/* Kaca & Gulungan Pita Kaset Alami */
+.tape-window {
+    background: rgba(15, 15, 15, 0.85);
+    border: 2px solid #555;
+    border-radius: 4px;
+    height: 52px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-top: 4px;
+    padding: 0 12px;
+    position: relative;
+    overflow: hidden;
     cursor: grab;
 }
 
-.reel {
-    width: 38px; height: 38px;
-    min-width: 38px;
-    background: radial-gradient(circle, #ccc 30%, #222 70%);
-    border-radius: 50%;
-    border: 3px solid #d4af37;
-    display: flex; justify-content: center; align-items: center;
+/* Gulungan Pita Cokelat Gelap (Alami) */
+.reel-spool-left, .reel-spool-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.reel-hole {
-    width: 12px; height: 12px;
-    background: #1e150f;
+.tape-roll {
+    position: absolute;
     border-radius: 50%;
-    border: 2px dashed #fff;
+    background: #3d2314; /* Warna pita kaset magnetik alami */
+    border: 1px solid #26140a;
+    width: 38px;
+    height: 38px;
+    z-index: 1;
 }
 
-.spinning { animation: spinReel 2s linear infinite; }
-@keyframes spinReel { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.reel-hub {
+    width: 24px;
+    height: 24px;
+    background: #e6e6e6; /* Plastik hub kaset putih matte */
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hub-teeth {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.spinning { animation: spinHub 2.5s linear infinite; }
+@keyframes spinHub { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* Volume Slider */
-.knob-panel { width: 55px; text-align: center; }
-.knob-container label { font-size: 8px; font-weight: bold; color: #ffd89b; display: block; margin-bottom: 4px; }
-.knob-container input[type=range] { width: 65px; transform: rotate(-90deg); margin-top: 20px; accent-color: #d4af37; }
+.knob-panel { width: 50px; text-align: center; }
+.knob-container label { font-size: 8px; font-weight: bold; color: #ffd89b; display: block; margin-bottom: 4px; font-family: monospace; }
+.knob-container input[type=range] { width: 60px; transform: rotate(-90deg); margin-top: 20px; accent-color: #b8860b; }
 
-/* Panel Booster Vintage Metalik */
+/* Panel Booster */
 .booster-panel {
-    background: linear-gradient(180deg, #3a2211, #211309);
-    border: 2px solid #634323;
+    background: #211208;
+    border: 2px solid #4a2e16;
     border-radius: 6px;
-    padding: 8px;
-    margin-bottom: 12px;
-    color: #f1e9db;
+    padding: 6px;
+    margin-bottom: 10px;
 }
 
 .booster-title {
@@ -242,58 +261,57 @@ body {
     font-weight: bold;
     text-align: center;
     color: #ffd89b;
-    margin-bottom: 6px;
-    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-family: monospace;
 }
 
 .booster-controls { display: flex; justify-content: space-around; }
-.booster-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.booster-item label { font-size: 8px; font-weight: bold; color: #d4af37; }
+.booster-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.booster-item label { font-size: 8px; font-weight: bold; color: #b8860b; font-family: monospace; }
 
 .toggle-btn {
-    background: #2b180a;
-    border: 1px solid #d4af37;
-    color: #aaa;
-    font-size: 9px;
+    background: #120904;
+    border: 1px solid #b8860b;
+    color: #888;
+    font-size: 8px;
     font-weight: bold;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 3px;
     cursor: pointer;
 }
 
 .toggle-btn.active {
-    background: #d4af37;
+    background: #b8860b;
     color: #000;
-    box-shadow: 0 0 8px #ffdf00;
+    box-shadow: 0 0 6px #ffdf00;
 }
 
 /* Tombol Fisik */
-.button-panel { display: flex; gap: 6px; margin-bottom: 12px; }
+.button-panel { display: flex; gap: 5px; margin-bottom: 10px; }
 .btn-tape {
-    flex: 1; height: 48px;
-    background: linear-gradient(to bottom, #8a5829, #4a2d10);
-    border: 2px solid #231205; border-radius: 4px;
+    flex: 1; height: 44px;
+    background: linear-gradient(to bottom, #7a4623, #40210c);
+    border: 2px solid #140802; border-radius: 4px;
     color: #fdf8e6; font-size: 9px; font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 0 #120903, 0 6px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 0 #100501;
     display: flex; align-items: center; justify-content: center;
 }
 .btn-tape:active, .btn-tape.active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 #120903;
-    background: linear-gradient(to bottom, #4a2d10, #8a5829);
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #100501;
 }
-.btn-open { background: linear-gradient(to bottom, #a83220, #61180d); }
+.btn-open { background: linear-gradient(to bottom, #96281b, #5c140b); }
 
 /* Playlist Card */
 .playlist-card {
-    background: #faf4e8;
-    border: 2px solid #8a633c;
-    border-radius: 4px; padding: 8px;
-    max-height: 120px; overflow-y: auto;
+    background: #fdfbf7;
+    border: 2px solid #7a4623;
+    border-radius: 4px; padding: 6px;
+    max-height: 110px; overflow-y: auto;
 }
-.card-title { font-size: 9px; font-weight: bold; color: #54391d; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 1px dashed #c4a988; }
+.card-title { font-size: 9px; font-weight: bold; color: #40210c; padding-bottom: 3px; margin-bottom: 4px; border-bottom: 1px dashed #cca385; font-family: monospace; }
 .playlist-list { list-style: none; }
-.playlist-list li { font-size: 10px; padding: 4px; border-bottom: 1px dashed #e0d2bd; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f3e5cb; }
+.playlist-list li { font-size: 10px; padding: 4px; border-bottom: 1px dashed #e8d7c8; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f5e8d0; }
 .empty-msg { color: #888; font-style: italic; }
