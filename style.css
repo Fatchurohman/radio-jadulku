@@ -92,7 +92,7 @@ body {
     z-index: 2;
 }
 
-/* Middle Layout Layout Rapi Tanpa Volume Slider */
+/* Middle Layout */
 .middle-section {
     display: flex;
     justify-content: space-between;
@@ -101,17 +101,17 @@ body {
     margin-bottom: 12px;
 }
 
-/* S-Meter Diperbaiki Jarum Tidak Menembus Box */
+/* S-Meter */
 .vu-meter {
     width: 65px;
-    height: 125px; /* Tinggi disesuaikan dengan kaset */
+    height: 125px;
     background: #fcf8ec;
     border: 3px solid #4a2e16;
     border-radius: 6px;
     padding: 6px 4px;
     text-align: center;
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    overflow: hidden; /* Mencegah jarum keluar box */
+    overflow: hidden;
 }
 
 .vu-label { font-size: 8px; font-weight: bold; color: #4a2e16; font-family: monospace; }
@@ -122,62 +122,53 @@ body {
     bottom: 0; 
     left: 50%;
     width: 2px; 
-    height: 60px; /* Panjang jarum pas di dalam box */
+    height: 60px;
     background: #d32f2f;
     transform-origin: bottom center;
-    transform: rotate(-30deg); /* Resting angle aman di dalam frame */
+    transform: rotate(-30deg);
     transition: transform 0.08s ease-out;
 }
 
-/* === KASET TRANSPARAN MIKA ERA 60-70AN PROPORSIONAL === */
+/* === BENTUK & WARNA KASET MIKA TRANSPARAN NATURAL === */
 .cassette-deck {
     flex: 1;
     min-width: 0;
-    height: 125px; /* Rasio fisik kaset 3:2 proporsional */
-    background: #0f0b08;
+    height: 125px;
+    background: #000;
     border: 4px solid #4a2e16;
     border-radius: 8px;
-    padding: 6px;
+    padding: 5px;
     box-shadow: inset 0 0 12px #000;
 }
 
 .cassette-shell {
     width: 100%;
     height: 100%;
-    /* Efek mika transparan menerawang khas kaset vintage */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(35, 30, 25, 0.85) 50%, rgba(10, 8, 6, 0.95) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    /* Bodi mika plastik bening agak kecokelatan/smoke murni */
+    background: rgba(220, 210, 190, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 6px;
     padding: 6px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    backdrop-filter: blur(1px);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.2), 0 0 8px rgba(0,0,0,0.5);
+    backdrop-filter: blur(0.5px);
 }
 
 .cassette-label-sticker {
-    background: #fdfdfa;
-    padding: 3px 6px;
+    background: #ffffff;
+    padding: 5px 8px;
     border-radius: 3px;
-    border-left: 5px solid #c62828;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border-left: 5px solid #d32f2f;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.sticker-brand {
-    font-size: 8px;
-    font-weight: bold;
-    color: #555;
-    display: block;
-    font-family: monospace;
-}
-
-/* Running Text */
+/* Running Text Judul Lagu */
 .ticker-wrapper {
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    margin-top: 2px;
 }
 
 .clean-running-title {
@@ -197,14 +188,14 @@ body {
 
 /* Kaca & Mekanisme Dalam Kaset */
 .tape-window {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    background: rgba(20, 15, 10, 0.45);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
-    height: 58px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 14px;
+    padding: 0 12px;
     position: relative;
     overflow: hidden;
     cursor: grab;
@@ -212,22 +203,22 @@ body {
 
 .tape-bridge {
     position: absolute;
-    bottom: 2px;
+    bottom: 4px;
     left: 20%;
     right: 20%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .tape-guide-line {
     width: 100%;
-    height: 2px;
-    background: #3d2314; /* Jalur pita magnetik melintas di tengah */
+    height: 3px;
+    background: #3d2314;
     margin-top: 2px;
 }
 
-/* Gulungan Pita Magnetik Cokelat Alami */
+/* Gulungan Pita Cokelat Alami */
 .reel-spool-left, .reel-spool-right {
     position: relative;
     display: flex;
@@ -239,7 +230,7 @@ body {
     position: absolute;
     border-radius: 50%;
     background: #3d2314;
-    border: 1px solid #211107;
+    border: 1px solid #1a0a03;
     width: 42px;
     height: 42px;
     z-index: 1;
@@ -248,8 +239,8 @@ body {
 .reel-hub {
     width: 26px;
     height: 26px;
-    background: #e8e8e8;
-    border: 2px solid #999;
+    background: #f0f0f0;
+    border: 2px solid #888;
     border-radius: 50%;
     z-index: 2;
     display: flex;
@@ -333,6 +324,6 @@ body {
 }
 .card-title { font-size: 9px; font-weight: bold; color: #40210c; padding-bottom: 3px; margin-bottom: 4px; border-bottom: 1px dashed #cca385; font-family: monospace; }
 .playlist-list { list-style: none; }
-.playlist-list li { font-size: 10px; padding: 4px; border-bottom: 1px dashed #e8d7c8; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.playlist-list li { font-size: 10px; padding: 5px; border-bottom: 1px dashed #e8d7c8; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #222; }
 .playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f5e8d0; }
 .empty-msg { color: #888; font-style: italic; }
