@@ -1,1 +1,288 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1614;
+    font-family: 'Courier New', Courier, monospace;
+    color: #332d29;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.vintage-player {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(145deg, #d8caaf, #b3a286);
+    border: 6px solid #4a3b32;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,255,255,0.3);
+    padding: 15px;
+    position: relative;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: bold;
+    color: #5a4b41;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #9a8874;
+    padding-bottom: 4px;
+}
+
+/* Radio Dial Display */
+.radio-display {
+    background: #111;
+    border: 3px solid #3d3128;
+    border-radius: 6px;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 10px #000;
+}
+
+.radio-light {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle, rgba(255,180,50,0.25) 0%, rgba(0,0,0,0.8) 90%);
+    pointer-events: none;
+}
+
+.dial-scale {
+    color: #ffb84d;
+    font-size: 11px;
+    padding: 8px 10px;
+    text-shadow: 0 0 5px #ff9900;
+}
+
+.dial-scale .khz {
+    font-size: 10px;
+    color: #d99b00;
+    margin-top: 4px;
+}
+
+.dial-needle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    width: 3px;
+    background: #ff3300;
+    box-shadow: 0 0 8px #ff3300;
+    transition: left 0.2s linear;
+    z-index: 2;
+}
+
+/* Middle Layout */
+.middle-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.vu-meter {
+    width: 75px;
+    height: 85px;
+    background: #fdf8e6;
+    border: 3px solid #4a3b32;
+    border-radius: 6px;
+    padding: 4px;
+    text-align: center;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+}
+
+.vu-label {
+    font-size: 8px;
+    font-weight: bold;
+    color: #4a3b32;
+}
+
+.vu-dial {
+    height: 60px;
+    position: relative;
+    border-bottom: 2px solid #aaa;
+}
+
+.vu-needle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 45px;
+    background: #d32f2f;
+    transform-origin: bottom center;
+    transform: rotate(-40deg);
+    transition: transform 0.08s ease-out;
+}
+
+/* Kaset Tape Desk */
+.cassette-deck {
+    flex: 1;
+    height: 100px;
+    background: #2b2521;
+    border: 4px solid #5a4b41;
+    border-radius: 8px;
+    position: relative;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 0 12px #000;
+}
+
+.cassette-label {
+    background: #fdfbf7;
+    color: #111;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 4px solid #c62828;
+}
+
+.reels {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.reel {
+    width: 42px;
+    height: 42px;
+    background: radial-gradient(circle, #888 30%, #111 70%);
+    border-radius: 50%;
+    border: 3px solid #d8caaf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reel-hole {
+    width: 14px;
+    height: 14px;
+    background: #2b2521;
+    border-radius: 50%;
+    border: 2px dashed #fff;
+}
+
+.spinning {
+    animation: spinReel 2s linear infinite;
+}
+
+@keyframes spinReel {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.knob-panel {
+    width: 60px;
+    text-align: center;
+}
+
+.knob-container label {
+    font-size: 9px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.knob-container input[type=range] {
+    width: 70px;
+    transform: rotate(-90deg);
+    margin-top: 25px;
+    accent-color: #8c2d19;
+}
+
+/* Tombol-tombol Timbul Analog */
+.button-panel {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.btn-tape {
+    flex: 1;
+    height: 50px;
+    background: linear-gradient(to bottom, #77685a, #4a3e35);
+    border: 2px solid #2d241f;
+    border-radius: 4px;
+    color: #f1e9db;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #221a16, 0 8px 6px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+}
+
+.btn-tape:active, .btn-tape.active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 #221a16, 0 3px 3px rgba(0,0,0,0.4);
+    background: linear-gradient(to bottom, #4a3e35, #77685a);
+}
+
+.btn-open {
+    background: linear-gradient(to bottom, #8c3b2b, #5a2015);
+}
+
+/* Playlist Text / Paper Note Style */
+.playlist-card {
+    background: #fbf8ef;
+    border: 2px solid #9a8a75;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.card-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: #6a5a4a;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed #c0b49f;
+}
+
+.playlist-list {
+    list-style: none;
+}
+
+.playlist-list li {
+    font-size: 11px;
+    padding: 5px 4px;
+    border-bottom: 1px dashed #e0d5c1;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-list li.playing {
+    font-weight: bold;
+    color: #b71c1c;
+    background: #f5e8d0;
+}
+
+.empty-msg {
+    color: #888;
+    font-style: italic;
+}
 
