@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>60s Vintage Tape Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="vintage-player">
+        <!-- Status Bar Vintage -->
+        <div class="top-bar">
+            <span>OPPO 6X • OFFLINE PLAYER</span>
+            <span>1960s ANALOG MODE</span>
+        </div>
+
+        <!-- Frequency Dial (Berfungsi sebagai Progress Bar / Seek Bar) -->
+        <div class="radio-display" id="freqDisplay">
+            <div class="dial-scale">
+                <span class="mhz">FM 88..90..94..98..102..108 MHz</span>
+                <div class="khz">AM 550..700..900..1200..1600 kHz</div>
+            </div>
+            <!-- Jarum Dial Merah Bergerak Sesuai Durasi Lagu -->
+            <div class="dial-needle" id="dialNeedle"></div>
+            <div class="radio-light"></div>
+        </div>
+
+        <!-- Middle Section: VU Meter + Cassette Tape + Volume Knob -->
+        <div class="middle-section">
+            <!-- VU Meter / S-Meter -->
+            <div class="vu-meter">
+                <div class="vu-label">S-METER</div>
+                <div class="vu-dial">
+                    <div class="vu-needle" id="vuNeedle"></div>
+                </div>
+            </div>
+
+            <!-- Jendela Kaset Utama -->
+            <div class="cassette-deck">
+                <div class="cassette-label" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                <div class="reels">
+                    <div class="reel left-reel" id="leftReel">
+                        <div class="reel-hole"></div>
+                    </div>
+                    <div class="reel right-reel" id="rightReel">
+                        <div class="reel-hole"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume Knob Slider -->
+            <div class="knob-panel">
+                <div class="knob-container">
+                    <label>VOLUME</label>
+                    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.8">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Fisik Timbul -->
+        <div class="button-panel">
+            <label class="btn-tape btn-open" for="fileInput">
+                <span>📁 FOLDER</span>
+            </label>
+            <button id="btnPrev" class="btn-tape">
+                <span>⏮ PREV</span>
+            </button>
+            <button id="btnPlay" class="btn-tape">
+                <span>▶ PLAY</span>
+            </button>
+            <button id="btnPause" class="btn-tape">
+                <span>⏸ PAUSE</span>
+            </button>
+            <button id="btnNext" class="btn-tape">
+                <span>⏭ NEXT</span>
+            </button>
+        </div>
+
+        <!-- Daftar Lagu / Kertas Playlist -->
+        <div class="playlist-card">
+            <div class="card-title">MEMORI LOKAL • DAFTAR LAGU</div>
+            <ul id="playlistView" class="playlist-list">
+                <li class="empty-msg">Klik tombol [📁 FOLDER] di atas untuk memilih lagu dari HP kamu.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hidden Inputs & Audio Engine -->
+    <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
+    <audio id="audioEngine"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
 
