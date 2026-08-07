@@ -26,21 +26,30 @@ let audioCtx, source, gainNode, bassFilter, analyser, dataArray;
 let isBoostOn = false;
 let isBassOn = false;
 
+// LOGIKA PILIH FOLDER / FILE AUDIO DI-PERBAIKI TOTAL
 fileInput.addEventListener('change', (e) => {
     const files = Array.from(e.target.files);
-    if (files.length === 0) return;
-    playlist = files;
+    
+    // Filter hanya berkas audio
+    const audioFiles = files.filter(f => f.type.startsWith('audio/') || f.name.match(/\.(mp3|m4a|wav|ogg|flac)$/i));
+    
+    if (audioFiles.length === 0) return;
+
+    playlist = audioFiles;
     currentIndex = 0;
     renderPlaylist();
     loadSong(currentIndex);
+    playAudio();
 });
 
 function renderPlaylist() {
     playlistView.innerHTML = '';
     playlist.forEach((file, index) => {
         const li = document.createElement('li');
-        li.textContent = `${index + 1}. ${file.name.replace(/\.[^/.]+$/, "")}`;
+        const cleanName = file.name.replace(/\.[^/.]+$/, "");
+        li.textContent = `${index + 1}. ${cleanName}`;
         if (index === currentIndex) li.classList.add('playing');
+        
         li.addEventListener('click', () => {
             currentIndex = index;
             loadSong(currentIndex);
@@ -53,9 +62,15 @@ function renderPlaylist() {
 function loadSong(index) {
     if (!playlist[index]) return;
     const file = playlist[index];
-    audio.src = URL.createObjectURL(file);
     
-    songTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+    // Buat URL Objek Lokal
+    const songURL = URL.createObjectURL(file);
+    audio.src = songURL;
+    
+    const cleanName = file.name.replace(/\.[^/.]+$/, "");
+    songTitle.textContent = cleanName;
+    
+    // Reset Animasi Running Text
     songTitle.style.animation = 'none';
     songTitle.offsetHeight;
     songTitle.style.animation = 'marquee 12s linear infinite';
@@ -70,12 +85,15 @@ function playAudio() {
         audioCtx.resume();
     }
     
-    audio.play();
-    leftReel.classList.add('spinning');
-    rightReel.classList.add('spinning');
-    btnPlay.classList.add('active');
-    btnPause.classList.remove('active');
-    
+    audio.play().then(() => {
+        leftReel.classList.add('spinning');
+        rightReel.classList.add('spinning');
+        btnPlay.classList.add('active');
+        btnPause.classList.remove('active');
+    }).catch(err => {
+        console.log("Play error:", err);
+    });
+
     if (isBoostOn || isBassOn) {
         initWebAudio();
     }
@@ -106,15 +124,13 @@ btnPrev.addEventListener('click', () => {
     playAudio();
 });
 
-// Update Dial & Pita Magnetik Menerawang
 audio.addEventListener('timeupdate', () => {
     if (audio.duration) {
         const progress = (audio.currentTime / audio.duration);
         dialNeedle.style.left = `${progress * 100}%`;
 
-        // Ukuran gulungan pita alami
-        let leftSize = 42 - (progress * 16); // Mengurang (42px -> 26px)
-        let rightSize = 26 + (progress * 16); // Membesar (26px -> 42px)
+        let leftSize = 42 - (progress * 16);
+        let rightSize = 26 + (progress * 16);
         tapeRollLeft.style.width = `${leftSize}px`;
         tapeRollLeft.style.height = `${leftSize}px`;
         tapeRollRight.style.width = `${rightSize}px`;
@@ -157,7 +173,7 @@ function initWebAudio() {
 
         renderAudioVisuals();
     } catch (e) {
-        console.log("Direct Sound Engine Ready");
+        console.log("Audio Engine Ready");
     }
 }
 
@@ -181,7 +197,6 @@ btnBass.addEventListener('click', () => {
     btnBass.classList.toggle('active', isBassOn);
 });
 
-// Render Gerakan Jarum S-Meter (Rentang -30deg s/d 30deg Aman dalam Frame)
 function renderAudioVisuals() {
     requestAnimationFrame(renderAudioVisuals);
     if (!analyser || audio.paused) {
@@ -197,7 +212,7 @@ function renderAudioVisuals() {
     }
     let avg = sum / dataArray.length;
 
-    let angle = -30 + (avg / 255) * 60; // Rentang aman -30deg sampai +30deg
+    let angle = -30 + (avg / 255) * 60;
     vuNeedle.style.transform = `rotate(${angle}deg)`;
 
     let glowIntensity = 0.3 + (avg / 255) * 0.7;
