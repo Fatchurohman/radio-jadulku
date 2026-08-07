@@ -22,18 +22,15 @@ const btnBass = document.getElementById('btnBass');
 let playlist = [];
 let currentIndex = 0;
 
-// Web Audio API Node (Untuk Booster & Equalizer)
-let audioCtx, source, gainNode, bassFilter, analyser, dataArray;
+let audioCtx, source, gainNode, bassFilter, compressor, analyser, dataArray;
 let isBoostOn = false;
 let isBassOn = false;
 
-// Kumpulan warna stiker kaset tulisan tangan (Random tiap lagu)
 const stickerColors = [
-    { bg: '#fdfcf7', border: '#d32f2f' },
-    { bg: '#fffde7', border: '#1976d2' },
+    { bg: '#fcf8ec', border: '#d32f2f' },
+    { bg: '#f0f4c3', border: '#1976d2' },
     { bg: '#f3e5f5', border: '#388e3c' },
-    { bg: '#e0f2f1', border: '#f57c00' },
-    { bg: '#fff3e0', border: '#7b1fa2' }
+    { bg: '#e0f2f1', border: '#f57c00' }
 ];
 
 fileInput.addEventListener('change', (e) => {
@@ -65,10 +62,12 @@ function loadSong(index) {
     const file = playlist[index];
     audio.src = URL.createObjectURL(file);
     
-    // Ganti teks judul dengan gaya tulisan tangan
+    // Set teks judul running text & reset animasi
     songTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+    songTitle.style.animation = 'none';
+    songTitle.offsetHeight; /* trigger reflow */
+    songTitle.style.animation = 'marquee 10s linear infinite';
     
-    // Randomize Stiker Kaset
     const theme = stickerColors[Math.floor(Math.random() * stickerColors.length)];
     stickerTheme.style.background = theme.bg;
     stickerTheme.style.borderLeftColor = theme.border;
@@ -114,7 +113,6 @@ btnPrev.addEventListener('click', () => {
     playAudio();
 });
 
-// Update Dial & Seeking
 audio.addEventListener('timeupdate', () => {
     if (audio.duration) {
         const progress = (audio.currentTime / audio.duration) * 100;
@@ -135,47 +133,54 @@ volumeControl.addEventListener('input', (e) => {
 
 audio.addEventListener('ended', () => btnNext.click());
 
-// --- FITUR 4: AUDIO BOOSTER & BASS EQUALIZER ---
+// Web Audio API Aman Tanpa Pecah/Distorsi
 function initWebAudio() {
     if (audioCtx) return;
     try {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         source = audioCtx.createMediaElementSource(audio);
         
-        // Gain Node (Penguat Volume Super Boost)
+        // Gain Node (Clarity Boost Aman)
         gainNode = audioCtx.createGain();
         gainNode.gain.value = 1.0;
 
-        // Bass Filter Node (Low Shelf Filter)
+        // Bass Filter
         bassFilter = audioCtx.createBiquadFilter();
         bassFilter.type = 'lowshelf';
-        bassFilter.frequency.value = 200; // Frekuensi Bass
-        bassFilter.gain.value = 0; // Default Off
+        bassFilter.frequency.value = 180;
+        bassFilter.gain.value = 0;
 
-        // Analyser untuk VU Meter & Lampu Tabung Warm Glow
+        // Dynamic Compressor (Pembersih Suara Pecah/Clipping)
+        compressor = audioCtx.createDynamicsCompressor();
+        compressor.threshold.value = -12;
+        compressor.knee.value = 30;
+        compressor.ratio.value = 12;
+        compressor.attack.value = 0.003;
+        compressor.release.value = 0.25;
+
         analyser = audioCtx.createAnalyser();
         analyser.fftSize = 64;
         dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-        // Sambungkan Jalur Audio
+        // Rantai Koneksi Audio
         source.connect(bassFilter);
         bassFilter.connect(gainNode);
-        gainNode.connect(analyser);
+        gainNode.connect(compressor);
+        compressor.connect(analyser);
         analyser.connect(audioCtx.destination);
 
         renderAudioEffects();
     } catch (e) {
-        console.log("WebAudio initialized");
+        console.log("Audio Engine Ready");
     }
 }
 
-// Toggle Volume Booster
 btnBoost.addEventListener('click', () => {
     initWebAudio();
     isBoostOn = !isBoostOn;
     if (isBoostOn) {
-        gainNode.gain.value = 2.5; // Menguatkan suara hingga 2.5x lipat
-        btnBoost.textContent = "ON (200%)";
+        gainNode.gain.value = 1.35; // Boost jernih aman tanpa distorsi
+        btnBoost.textContent = "ON";
         btnBoost.classList.add('active');
     } else {
         gainNode.gain.value = 1.0;
@@ -184,13 +189,12 @@ btnBoost.addEventListener('click', () => {
     }
 });
 
-// Toggle Bass Punch
 btnBass.addEventListener('click', () => {
     initWebAudio();
     isBassOn = !isBassOn;
     if (isBassOn) {
-        bassFilter.gain.value = 12; // Mendongkrak bass +12dB
-        btnBass.textContent = "ON (+12dB)";
+        bassFilter.gain.value = 7; // Bass punch halus & hangat
+        btnBass.textContent = "ON";
         btnBass.classList.add('active');
     } else {
         bassFilter.gain.value = 0;
@@ -199,7 +203,6 @@ btnBass.addEventListener('click', () => {
     }
 });
 
-// --- FITUR 2: LAMPU TABUNG REAKSI (WARM GLOW) & VU METER ---
 function renderAudioEffects() {
     requestAnimationFrame(renderAudioEffects);
     if (!analyser || audio.paused) {
@@ -215,16 +218,14 @@ function renderAudioEffects() {
     }
     let avg = sum / dataArray.length;
 
-    // Gerakkan Jarum VU Meter
     let angle = -40 + (avg / 255) * 80;
     vuNeedle.style.transform = `rotate(${angle}deg)`;
 
-    // Pendaran Lampu Mengikuti Irama Musik (Warm Glow)
     let glowIntensity = 0.3 + (avg / 255) * 0.7;
     radioLight.style.opacity = glowIntensity.toString();
 }
 
-// --- FITUR 4 (Lanjutan): SWIPE / DRAG ROADS KASET DENGAN JARI ---
+// Drag Reels
 let startX = 0;
 let isDragging = false;
 
@@ -237,12 +238,9 @@ reelsArea.addEventListener('pointerdown', (e) => {
 window.addEventListener('pointermove', (e) => {
     if (!isDragging || !audio.duration) return;
     let deltaX = e.clientX - startX;
-    
-    // Geser kanan = Fast Forward, Geser kiri = Rewind
     audio.currentTime += deltaX * 0.05;
     startX = e.clientX;
 
-    // Putar visual roda saat diseret
     leftReel.style.transform = `rotate(${audio.currentTime * 50}deg)`;
     rightReel.style.transform = `rotate(${audio.currentTime * 50}deg)`;
 });
