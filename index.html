@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>60s Luxury Vintage Tape - fatur62</title>
+    <title>60s Vintage Tape - fatur62</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="vintage-player">
-        <!-- Status Bar Vintage Brass -->
+        <!-- Status Bar -->
         <div class="top-bar">
-            <span class="brand-tag">✦ LUXURY ANALOG SOUND ✦</span>
+            <span class="brand-tag">✦ ANALOG AUDIO SYSTEM ✦</span>
             <span class="dev-tag">DEV: <i>fatur62</i></span>
         </div>
 
@@ -35,27 +35,39 @@
                 </div>
             </div>
 
-            <!-- Cassette Deck dengan Running Text -->
+            <!-- Cassette Deck Proporsional dengan Kaset Alami -->
             <div class="cassette-deck">
-                <div class="cassette-sticker" id="stickerTheme">
-                    <span class="sticker-brand">fatur62 HIGH BIAS AUDIO</span>
-                    <div class="ticker-wrapper">
-                        <div class="handwritten-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                <div class="cassette-body">
+                    <!-- Label Stiker Kaset -->
+                    <div class="cassette-label-sticker">
+                        <span class="sticker-brand">fatur62 HIGH BIAS C-90</span>
+                        <div class="ticker-wrapper">
+                            <div class="clean-running-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="reels-container" id="reelsArea">
-                    <div class="reel left-reel" id="leftReel">
-                        <div class="reel-hole"></div>
-                    </div>
-                    <div class="reel-spool"></div>
-                    <div class="reel right-reel" id="rightReel">
-                        <div class="reel-hole"></div>
+
+                    <!-- Jendela Kaset & Pita Alami -->
+                    <div class="tape-window" id="reelsArea">
+                        <div class="reel-spool-left">
+                            <div class="tape-roll" id="tapeRollLeft"></div>
+                            <div class="reel-hub" id="leftReel">
+                                <div class="hub-teeth"></div>
+                            </div>
+                        </div>
+
+                        <div class="tape-bridge"></div>
+
+                        <div class="reel-spool-right">
+                            <div class="tape-roll" id="tapeRollRight"></div>
+                            <div class="reel-hub" id="rightReel">
+                                <div class="hub-teeth"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Volume Control -->
+            <!-- Volume Slider -->
             <div class="knob-panel">
                 <div class="knob-container">
                     <label>VOLUME</label>
@@ -64,16 +76,16 @@
             </div>
         </div>
 
-        <!-- Panel Booster Audio Jernih -->
+        <!-- Panel Controls Audio Jernih -->
         <div class="booster-panel">
-            <div class="booster-title">✨ HI-FI TUBE PRE-AMP & BASS ENHANCER</div>
+            <div class="booster-title">🔊 AUDIO PREAMP & HIGH-FIDELITY</div>
             <div class="booster-controls">
                 <div class="booster-item">
-                    <label>CLARITY BOOST</label>
+                    <label>EXTRA VOLUME</label>
                     <button id="btnBoost" class="toggle-btn">OFF</button>
                 </div>
                 <div class="booster-item">
-                    <label>DEEP BASS</label>
+                    <label>BASS ENHANCE</label>
                     <button id="btnBass" class="toggle-btn">OFF</button>
                 </div>
             </div>
@@ -109,7 +121,7 @@
 
     <!-- Hidden Input & Engine -->
     <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
-    <audio id="audioEngine" crossorigin="anonymous"></audio>
+    <audio id="audioEngine"></audio>
 
     <script src="script.js"></script>
 </body>
