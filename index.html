@@ -25,7 +25,7 @@
             <div class="radio-light" id="radioLight"></div>
         </div>
 
-        <!-- Middle Section (Kaset + VU Meter) -->
+        <!-- Middle Section (Kaset Realistis + VU Meter) -->
         <div class="middle-section">
             <!-- VU Meter -->
             <div class="vu-meter">
@@ -35,53 +35,27 @@
                 </div>
             </div>
 
-            <!-- Cassette Deck Transparan Persis Gambar Memorex -->
+            <!-- Frame Kaset Memorex Asli dari kaset.png -->
             <div class="cassette-deck">
-                <div class="clear-cassette">
-                    <!-- Sekrup di 4 Sudut Kaset Mika -->
-                    <div class="screw top-left"></div>
-                    <div class="screw top-right"></div>
-                    <div class="screw bottom-left"></div>
-                    <div class="screw bottom-right"></div>
-
-                    <!-- Label Stiker Putih Atas -->
-                    <div class="cassette-label-sticker">
-                        <span class="side-mark">A</span>
+                <div class="real-cassette-frame" id="reelsArea">
+                    <!-- Overlay Running Text di Atas Stiker Putih Gambarmu -->
+                    <div class="label-overlay">
                         <div class="ticker-wrapper">
                             <div class="clean-running-title" id="songTitle">Tidak Ada Lagu (Pilih File)</div>
                         </div>
                     </div>
 
-                    <!-- Area Tengah: Gulungan Pita & Hub Roda 6 Bergeri -->
-                    <div class="reels-area" id="reelsArea">
-                        <div class="spool left-spool">
-                            <div class="tape-roll" id="tapeRollLeft"></div>
-                            <div class="hub-center" id="leftReel">
-                                <div class="spoke s1"></div>
-                                <div class="spoke s2"></div>
-                                <div class="spoke s3"></div>
-                            </div>
-                        </div>
-
-                        <div class="spool right-spool">
-                            <div class="tape-roll" id="tapeRollRight"></div>
-                            <div class="hub-center" id="rightReel">
-                                <div class="spoke s1"></div>
-                                <div class="spoke s2"></div>
-                                <div class="spoke s3"></div>
-                            </div>
-                        </div>
+                    <!-- Overlay Gerigi Putar Tengah di Roda Kiri & Kanan -->
+                    <div class="hub-overlay left-hub-pos" id="leftReel">
+                        <div class="spoke s1"></div>
+                        <div class="spoke s2"></div>
+                        <div class="spoke s3"></div>
                     </div>
 
-                    <!-- Cetakan Tulisan Oranye / Emas Transparan di Bawah Mika -->
-                    <div class="cassette-print">
-                        <span class="brand-text">MEMOREX®</span>
-                        <span class="model-text">dBS 90</span>
-                    </div>
-
-                    <!-- Celah Pita Bawah -->
-                    <div class="bottom-trapezoid">
-                        <div class="tape-path"></div>
+                    <div class="hub-overlay right-hub-pos" id="rightReel">
+                        <div class="spoke s1"></div>
+                        <div class="spoke s2"></div>
+                        <div class="spoke s3"></div>
                     </div>
                 </div>
             </div>
