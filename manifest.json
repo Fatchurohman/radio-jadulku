@@ -1,0 +1,17 @@
+{
+  "short_name": "Vintage Tape",
+  "name": "60s Vintage Tape Player - fatur62",
+  "icons": [
+    {
+      "src": "kaset.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0d0906",
+  "theme_color": "#7a4623",
+  "display": "standalone",
+  "orientation": "portrait"
+}
