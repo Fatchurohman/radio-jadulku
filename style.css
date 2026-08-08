@@ -185,6 +185,10 @@ body {
 @keyframes marquee {
     0% { transform: translate(0, 0); }
     100% { transform: translate(-100%, 0); }
+
+    .running-text {
+  color: #00ff00;       /* Warna hijau menyala / neon */
+  font-weight: normal;  /* Mematikan cetak tebal / bold */
 }
 
 /* Gerigi Putar Tengah di Lubang Kaset Transparan */
