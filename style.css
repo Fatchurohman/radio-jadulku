@@ -1,291 +1,167 @@
-* {
-    box-sizing: border-box;
-    user-select: none;
-    -webkit-user-select: none;
-    margin: 0;
-    padding: 0;
+/* ============================================================
+   1. RUNNING TEXT (Hijau Neon & Tidak Bold)
+   ============================================================ */
+.clean-running-title {
+  color: #00ff00 !important;   /* Warna hijau menyala / neon */
+  font-weight: normal !important; /* Nonaktifkan cetak tebal */
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.6); /* Efek glow neon tipis */
 }
 
-body {
-    background: #0d0906;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #332d29;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 10px;
-}
 
-/* Bodi Kayu Mahoni Klasik */
-.vintage-player {
-    width: 100%;
-    max-width: 420px;
-    background: radial-gradient(circle at center, #7a4623 0%, #40210c 70%, #210e03 100%);
-    border: 8px solid #140802;
-    border-radius: 14px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.95);
-    padding: 14px;
-    position: relative;
-}
-
-/* Top Bar */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: #ffd89b;
-    margin-bottom: 12px;
-    border-bottom: 1px dashed rgba(255, 216, 155, 0.3);
-    padding-bottom: 6px;
-    font-weight: bold;
-    font-family: 'Courier New', monospace;
-}
-
-.brand-tag { color: #f1c40f; }
-.dev-tag {
-    background: #b8860b;
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 10px;
-}
-.dev-tag i { color: #fff; font-style: normal; }
-
-/* Radio Dial Display */
-.radio-display {
-    background: #120a02;
-    border: 3px solid #54371b;
-    border-radius: 6px;
-    height: 55px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 12px;
-    box-shadow: inset 0 0 10px #000;
-}
-
-.radio-light {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle, rgba(255, 160, 50, 0.3) 0%, rgba(10, 5, 0, 0.85) 85%);
-    pointer-events: none;
-    transition: opacity 0.1s ease;
-}
-
-.dial-scale {
-    color: #ffb84d;
-    font-size: 10px;
-    padding: 6px 10px;
-    font-family: 'Courier New', monospace;
-}
-
-.dial-scale .khz { color: #d99b00; margin-top: 3px; }
-
-.dial-needle {
-    position: absolute;
-    top: 0; bottom: 0; left: 0%;
-    width: 3px;
-    background: #ff3300;
-    box-shadow: 0 0 6px #ff3300;
-    transition: left 0.2s linear;
-    z-index: 2;
-}
-
-/* Middle Layout */
-.middle-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-/* S-Meter */
-.vu-meter {
-    width: 65px;
-    height: 135px;
-    background: #fcf8ec;
-    border: 3px solid #4a2e16;
-    border-radius: 6px;
-    padding: 6px 4px;
-    text-align: center;
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    overflow: hidden;
-}
-
-.vu-label { font-size: 8px; font-weight: bold; color: #4a2e16; font-family: monospace; }
-.vu-dial { height: 105px; position: relative; border-bottom: 2px solid #aaa; }
-
-.vu-needle {
-    position: absolute; 
-    bottom: 0; 
-    left: 50%;
-    width: 2px; 
-    height: 65px;
-    background: #d32f2f;
-    transform-origin: bottom center;
-    transform: rotate(-30deg);
-    transition: transform 0.05s ease-out;
-}
-
-/* === MEMANGGIL GAMBAR kaset.png TRANSPARAN === */
+/* ============================================================
+   2. FIX CASSETTE DECK (Fit Page & Pas di Kotak)
+   ============================================================ */
 .cassette-deck {
-    flex: 1;
-    min-width: 0;
-    height: 135px;
-    /* Latar belakang ruangan kaset dibuat gelap berserat logam */
-    background: radial-gradient(circle, #332417 0%, #170f09 100%);
-    border: 4px solid #4a2e16;
-    border-radius: 8px;
-    padding: 4px;
-    box-shadow: inset 0 0 12px #000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .real-cassette-frame {
-    width: 100%;
-    height: 100%;
-    background-image: url('kaset.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-    cursor: grab;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background-size: contain !important; /* Membuat gambar kaset fit di kotak */
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  position: relative;
 }
 
-/* Teks Running Text Pas di Stiker Putih */
-.label-overlay {
-    position: absolute;
-    top: 15%;
-    left: 12.5%;
-    width: 75%;
-    height: 16%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    z-index: 5;
+/* Jika kamu menggunakan tag <img> di dalam .real-cassette-frame */
+.real-cassette-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mengatur gambar kaset tidak terpotong */
 }
 
-.ticker-wrapper {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-}
 
-.clean-running-title {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 900;
-    color: #111111; /* Warna hitam gelap pekat kontras di atas stiker putih */
-    font-family: Arial, sans-serif;
-    padding-left: 100%;
-    animation: marquee 12s linear infinite;
-}
+/* ============================================================
+   3. PERBAIKAN TOTAL LAYOUT PANEL KONTROL & TOMBOL
+   ============================================================ */
 
-@keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-
-    .running-text {
-  color: #00ff00;       /* Warna hijau menyala / neon */
-  font-weight: normal;  /* Mematikan cetak tebal / bold */
-}
-
-/* Gerigi Putar Tengah di Lubang Kaset Transparan */
-.hub-overlay {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    top: 48%;
-    margin-top: -14px;
-    z-index: 2; /* Berada tepat di lubang transparan kaset */
-    border-radius: 50%;
-    background: #e0e0e0;
-    border: 2px solid #888;
-}
-
-.left-hub-pos { left: 34.5%; margin-left: -14px; }
-.right-hub-pos { left: 65.5%; margin-left: -14px; }
-
-.spoke {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 22px; height: 3px;
-    background: #222;
-    margin-top: -1.5px; margin-left: -11px;
-}
-.spoke.s1 { transform: rotate(0deg); }
-.spoke.s2 { transform: rotate(60deg); }
-.spoke.s3 { transform: rotate(120deg); }
-
-.spinning { animation: spinHub 2.5s linear infinite; }
-@keyframes spinHub { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* Panel Booster */
+/* Panel Preamp (Extra Volume & Bass Enhance) */
 .booster-panel {
-    background: #211208;
-    border: 2px solid #4a2e16;
-    border-radius: 6px;
-    padding: 6px;
-    margin-bottom: 10px;
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .booster-title {
-    font-size: 9px;
-    font-weight: bold;
-    text-align: center;
-    color: #ffd89b;
-    margin-bottom: 4px;
-    font-family: monospace;
+  color: #8a7352;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-align: left;
 }
 
-.booster-controls { display: flex; justify-content: space-around; }
-.booster-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.booster-item label { font-size: 8px; font-weight: bold; color: #b8860b; font-family: monospace; }
+.booster-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.booster-item {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booster-item label {
+  color: #a0a0a0;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
 
 .toggle-btn {
-    background: #120904;
-    border: 1px solid #b8860b;
-    color: #888;
-    font-size: 8px;
-    font-weight: bold;
-    padding: 3px 10px;
-    border-radius: 3px;
-    cursor: pointer;
+  background: #111;
+  color: #ff3333;
+  border: 1px solid #444;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  min-width: 45px;
+  text-align: center;
 }
 
-.toggle-btn.active {
-    background: #b8860b;
-    color: #000;
-    box-shadow: 0 0 6px #ffdf00;
+/* Group Tombol Fisik (FOLDER, PREV, PLAY, PAUSE, NEXT) */
+.button-panel {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Bagi rata 5 tombol menyamping */
+  gap: 6px;
+  margin-top: 15px;
+  width: 100%;
 }
 
-/* Tombol Fisik */
-.button-panel { display: flex; gap: 5px; margin-bottom: 10px; }
 .btn-tape {
-    flex: 1; height: 44px;
-    background: linear-gradient(to bottom, #7a4623, #40210c);
-    border: 2px solid #140802; border-radius: 4px;
-    color: #fdf8e6; font-size: 9px; font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 3px 0 #100501;
-    display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #e6e6e6 0%, #cccccc 100%);
+  color: #222 !important;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 8px 2px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #888, 0 4px 5px rgba(0,0,0,0.3);
+  text-decoration: none;
+  text-align: center;
+  user-select: none;
 }
-.btn-tape:active, .btn-tape.active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #100501;
-}
-.btn-open { background: linear-gradient(to bottom, #96281b, #5c140b); }
 
-/* Playlist Card */
-.playlist-card {
-    background: #fdfbf7;
-    border: 2px solid #7a4623;
-    border-radius: 4px; padding: 6px;
-    max-height: 110px; overflow-y: auto;
+.btn-tape:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #888, 0 2px 3px rgba(0,0,0,0.3);
 }
-.card-title { font-size: 9px; font-weight: bold; color: #40210c; padding-bottom: 3px; margin-bottom: 4px; border-bottom: 1px dashed #cca385; font-family: monospace; }
-.playlist-list { list-style: none; }
-.playlist-list li { font-size: 10px; padding: 5px; border-bottom: 1px dashed #e8d7c8; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #222; }
-.playlist-list li.playing { font-weight: bold; color: #b71c1c; background: #f5e8d0; }
-.empty-msg { color: #888; font-style: italic; }
+
+.btn-open {
+  background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%); /* Warna tombol folder beda sendiri (kuning) */
+  border-color: #b39200;
+}
+
+.btn-tape span {
+  color: #222 !important;
+  white-space: nowrap;
+}
+
+/* Playlist Info Bawah */
+.playlist-card {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.card-title {
+  color: #666;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.playlist-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.empty-msg {
+  color: #888;
+  font-size: 0.75rem;
+}
