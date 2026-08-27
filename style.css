@@ -172,11 +172,11 @@ body {
     white-space: nowrap;
 }
 
-.clean-running-title {
+..clean-running-title {
     display: inline-block;
     font-size: 13px;
     font-weight: 900;
-    color: #111111; /* Warna hitam gelap pekat kontras di atas stiker putih */
+    color: #111111; /* <-- WARNA TEKS DI SINI (Hitam Pekat) */
     font-family: Arial, sans-serif;
     padding-left: 100%;
     animation: marquee 12s linear infinite;
